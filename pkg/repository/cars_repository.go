@@ -16,9 +16,9 @@ func NewCarsPostgres(db *sqlx.DB) *CarsPostgres {
 }
 
 func (r *CarsPostgres) AddCar(car model.Car) error {
-	query := "INSERT INTO cars (brand, model, image_url, year, price, color) VALUES ($1, $2, $3, $4, $5, $6)"
+	query := "INSERT INTO cars (brand, model, image_url, year, price, color, description) VALUES ($1, $2, $3, $4, $5, $6, $7)"
 
-	_, err := r.db.Exec(query, car.Brand, car.Model, car.Image_url, car.Year, car.Price, car.Color)
+	_, err := r.db.Exec(query, car.Brand, car.Model, car.Image_url, car.Year, car.Price, car.Color, car.Description)
 
 	return err
 }
@@ -34,9 +34,9 @@ func (r *CarsPostgres) GetCarById(id int) (model.Car, error) {
 }
 
 func (r *CarsPostgres) EditCar(car model.Car, id int) error {
-	query := "UPDATE cars SET brand = $1, model = $2, image_url = $3, year = $4, price = $5, color = $6 WHERE id = $7"
+	query := "UPDATE cars SET brand = $1, model = $2, image_url = $3, year = $4, price = $5, color = $6, description = $7 WHERE id = $8"
 
-	_, err := r.db.Exec(query, car.Brand, car.Model, car.Image_url, car.Year, car.Price, car.Color, id)
+	_, err := r.db.Exec(query, car.Brand, car.Model, car.Image_url, car.Year, car.Price, car.Color, car.Description, id)
 
 	return err
 }
@@ -55,7 +55,7 @@ func (r *CarsPostgres) DeleteCar(id int) error {
 }
 
 func (r *CarsPostgres) GetAllCars() ([]model.Car, error) {
-	query := "SELECT id, brand, model, image_url, year, price, color FROM cars"
+	query := "SELECT id, brand, model, image_url, year, price, color, description FROM cars"
 
 	rows, err := r.db.Query(query)
 	if err != nil {
@@ -67,7 +67,7 @@ func (r *CarsPostgres) GetAllCars() ([]model.Car, error) {
 	var cars []model.Car
 	for rows.Next() {
 		var car model.Car
-		if err := rows.Scan(&car.Id, &car.Brand, &car.Model, &car.Image_url, &car.Year, &car.Price, &car.Color); err != nil {
+		if err := rows.Scan(&car.Id, &car.Brand, &car.Model, &car.Image_url, &car.Year, &car.Price, &car.Color, &car.Description); err != nil {
 			return []model.Car{}, err
 		}
 
