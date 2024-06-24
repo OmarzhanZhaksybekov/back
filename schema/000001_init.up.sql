@@ -1,3 +1,7 @@
+CREATE DATABASE dealer;
+
+\c dealer;
+
 CREATE TABLE cars (
     id serial NOT NULL,
     brand varchar(100) NOT NULL,
@@ -5,7 +9,8 @@ CREATE TABLE cars (
     image_url text,
     year integer NOT NULL,
     price varchar(50) NOT NULL,
-    color varchar(50) NOT NULL
+    color varchar(50) NOT NULL,
+    description varchar(255) NOT NULL
 );
 
 CREATE TABLE users (

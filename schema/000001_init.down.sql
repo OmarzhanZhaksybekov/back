@@ -1,3 +1,5 @@
 DROP TABLE cars;
 
 DROP TABLE users;
+
+DROP DATABASE dealer;

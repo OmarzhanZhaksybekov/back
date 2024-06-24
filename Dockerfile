@@ -1,13 +1,10 @@
-FROM golang:1.21.1-alpine AS builder
+FROM golang:latest
 
-WORKDIR /usr/local/src
+COPY ./ ./
 
-RUN apk --no-cache add bash git make gcc gettext musl-dev
-
-COPY ["go.mod", "./" ]
-COPY ["go.sum", "./"]
 RUN go mod download
+RUN go build -o app ./cmd/main.go
 
-COPY  . ./
-RUN go build -o ./bin/app cmd/main.go
-CMD [ "./bin/app" ]
+RUN chmod +x wait-for-postgres.sh
+
+CMD ["./app"]
