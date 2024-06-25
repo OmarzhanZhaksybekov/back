@@ -26,17 +26,17 @@ pipeline {
                 script {
                     // Сборка Docker-образа для первого приложения на Go
                     dir('back') {
-                        sh 'docker build -t back .'
+                        bat 'docker build -t back .'
                     }
 
                     // Сборка Docker-образа для второго приложения на Go
                     dir('auth') {
-                        sh 'docker build -t auth .'
+                        bat 'docker build -t auth .'
                     }
 
                     // Сборка Docker-образа для приложения на React
                     dir('react') {
-                        sh 'docker build -t react .'
+                        bat 'docker build -t react .'
                     }
                 }
             }
@@ -46,8 +46,8 @@ pipeline {
             steps {
                 script {
                     dir('back') {
-                        sh 'docker-compose down' // Остановка предыдущих контейнеров, если необходимо
-                        sh 'docker-compose up -d --build' // Поднятие контейнеров в фоне
+                        bat 'docker-compose down' // Остановка предыдущих контейнеров, если необходимо
+                        bat 'docker-compose up -d --build' // Поднятие контейнеров в фоне
                     }
                 }
             }
