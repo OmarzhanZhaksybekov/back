@@ -35,7 +35,7 @@ pipeline {
                     }
 
                     // Сборка Docker-образа для приложения на React
-                    dir('react') {
+                    dir('front') {
                         bat 'docker build -t react .'
                     }
                 }
@@ -47,7 +47,7 @@ pipeline {
                 script {
                     dir('back') {
                         bat 'docker-compose down' // Остановка предыдущих контейнеров, если необходимо
-                        bat 'docker-compose up -d --build' // Поднятие контейнеров в фоне
+                        bat 'docker-compose up --build' // Поднятие контейнеров в фоне
                     }
                 }
             }
