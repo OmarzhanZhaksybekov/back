@@ -14,7 +14,7 @@ pipeline {
                         git url: 'https://github.com/ShawaDev/auth', branch: 'main'
                     }
 
-                    dir('react'){
+                    dir('front'){
                         git url: 'https://github.com/ShawaDev/front', branch: 'main'
                     }
                 }
