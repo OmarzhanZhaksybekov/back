@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        // Переменные окружения, если необходимо
+        docker-compose-version='2.27.1'
     }
 
     stages {
