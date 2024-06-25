@@ -7,15 +7,15 @@ pipeline {
                 script {
                     // Клонирование репозитория с docker-compose
                     dir('back') {
-                        git url: 'git@github.com:ShawaDev/back.git', branch: 'main'
+                        git url: 'https://github.com/ShawaDev/back', branch: 'main'
                     }
                     
                     dir('auth'){
-                        git url: 'git@github.com:ShawaDev/auth.git', branch: 'main'
+                        git url: 'https://github.com/ShawaDev/auth', branch: 'main'
                     }
 
                     dir('react'){
-                        git url: 'git@github.com:ShawaDev/front.git', branch: 'main'
+                        git url: 'https://github.com/ShawaDev/front', branch: 'main'
                     }
                 }
             }
