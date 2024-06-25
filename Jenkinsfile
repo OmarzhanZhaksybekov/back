@@ -12,15 +12,15 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                script{
+                script {
                     git branch: 'main', url: 'https://github.com/ShawaDev/back'
                 }
 
-                script{
-                    dir('auth'){
+                script {
+                    dir('auth') {
                         git branch: 'main', url: 'https://github.com/ShawaDev/auth'
                     }
-                    dir('front'){
+                    dir('front') {
                         git branch: 'main', url: 'https://github.com/ShawaDev/front'
                     }
                 }
@@ -48,12 +48,7 @@ pipeline {
             steps {
                 script {
                     // Устанавливаем Docker Compose, если не установлено
-                    sh """
-                    if ! docker-compose --version; then
-                        curl -L "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-                        chmod +x /usr/local/bin/docker-compose
-                    fi
-                    """
+                    
                     // Запускаем Docker Compose
                     dir('back') {
                         sh 'docker-compose down'
@@ -79,6 +74,7 @@ pipeline {
                 }
             }
         }
+    }
 
     post {
         success {
@@ -86,6 +82,14 @@ pipeline {
         }
         failure {
             echo 'Pipeline failed.'
+        }
+        always {
+            script {
+                dir('back') {
+                    sh 'docker-compose down'
+                }
+                sh 'docker system prune -f'
+            }
         }
     }
 }
