@@ -1,53 +1,65 @@
 pipeline {
     agent any
-    environment {
-        GO111MODULE = 'on'
-        GOPATH = '/go'
-    }
+
     stages {
         stage('Checkout Repositories') {
             steps {
-                dir('back') {
-                    git 'https://github.com/ShawaDev/back'
-                }
-                dir('auth') {
-                    git 'https://github.com/ShawaDev/auth'
-                }
-                dir('react') {
-                    git 'https://github.com/ShawaDev/front'
-                }
-            }
-        }
-        stage('Build Go Applications') {
-            steps {
-                dir('back') {
-                    sh 'go build -o back'
-                }
-                dir('auth') {
-                    sh 'go build -o auth'
+                script {
+                    // Клонирование репозитория с docker-compose
+                    dir('back') {
+                        git url: 'https://github.com/ShawaDev/back', branch: 'main'
+                    }
+                    
+                    dir('auth'){
+                        git url: 'https://github.com/ShawaDev/auth', branch: 'main'
+                    }
+
+                    dir('react'){
+                        git url: 'https://github.com/ShawaDev/front', branch: 'main'
+                    }
                 }
             }
         }
+
         stage('Build Docker Images') {
             steps {
-                dir('back') {
-                    sh 'docker build -t back .'
-                }
-                dir('auth') {
-                    sh 'docker build -t auth .'
-                }
-                dir('react') {
-                    sh 'docker build -t react .'
+                script {
+                    // Сборка Docker-образа для первого приложения на Go
+                    dir('back') {
+                        bat 'docker build -t back .'
+                    }
+
+                    // Сборка Docker-образа для второго приложения на Go
+                    dir('auth') {
+                        bat 'docker build -t auth .'
+                    }
+
+                    // Сборка Docker-образа для приложения на React
+                    dir('react') {
+                        bat 'docker build -t react .'
+                    }
                 }
             }
         }
+
         stage('Deploy with Docker Compose') {
             steps {
-                dir('back') {
-                    sh 'docker-compose down'
-                    sh 'docker-compose up -d --build'
+                script {
+                    dir('back') {
+                        bat 'docker-compose down' // Остановка предыдущих контейнеров, если необходимо
+                        bat 'docker-compose up -d --build' // Поднятие контейнеров в фоне
+                    }
                 }
             }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline completed successfully'
+        }
+        failure {
+            echo 'Pipeline failed'
         }
     }
 }
