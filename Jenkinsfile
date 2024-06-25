@@ -15,11 +15,11 @@ pipeline {
                     }
                     
                     dir('auth'){
-                        git url: 'git@github.com:ShawaDev/auth.git' branch: 'main'
+                        git url: 'git@github.com:ShawaDev/auth.git', branch: 'main'
                     }
 
                     dir('react'){
-                        git url: 'git@github.com:ShawaDev/front.git' branch: 'main'
+                        git url: 'git@github.com:ShawaDev/front.git', branch: 'main'
                     }
                 }
             }
