@@ -2,75 +2,57 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_COMPOSE_VERSION = '2.27.1' // Укажите версию Docker Compose, если необходимо
-        DB_CONTAINER_NAME = 'db'
-        API_SERVER_CONTAINER_NAME = 'web-app'
-        AUTH_SERVER_CONTAINER_NAME = 'auth-server'
-        FRONTEND_CONTAINER_NAME = "react-app"
+        // Переменные окружения, если необходимо
     }
 
     stages {
-        stage('Checkout') {
+        stage('Checkout Repositories') {
             steps {
                 script {
-                    git branch: 'main', url: 'https://github.com/ShawaDev/back'
-                }
-
-                script {
-                    dir('auth') {
-                        git branch: 'main', url: 'https://github.com/ShawaDev/auth'
-                    }
-                    dir('front') {
-                        git branch: 'main', url: 'https://github.com/ShawaDev/front'
-                    }
-                }
-            }
-        }
-
-        stage('Build and Push Docker Images') {
-            steps {
-                script {
-                    // Сборка и пуш Docker образов для каждого сервера
+                    // Клонирование репозитория с docker-compose
                     dir('back') {
-                        docker.build("shawadeveloper/back-web-app:latest").push()
+                        git url: 'git@github.com:ShawaDev/back.git', branch: 'main'
                     }
-                    dir('auth') {
-                        docker.build("shawadeveloper/back-auth-server:latest").push()
-                    }
-                    dir('front') {
-                        docker.build("shawadeveloper/back-react-app:latest").push()
-                    }
-                }
-            }
-        }
-
-        stage('Run Docker Compose') {
-            steps {
-                script {
-                    // Устанавливаем Docker Compose, если не установлено
                     
-                    // Запускаем Docker Compose
-                    dir('back') {
-                        sh 'docker-compose down'
-                        sh 'docker-compose up -d --build'
+                    dir('auth'){
+                        git url: 'git@github.com:ShawaDev/auth.git' branch: 'main'
+                    }
+
+                    dir('react'){
+                        git url: 'git@github.com:ShawaDev/front.git' branch: 'main'
                     }
                 }
             }
         }
 
-        stage('Run Tests') {
+        stage('Build Docker Images') {
             steps {
                 script {
-                    // Здесь можно определить ваши тесты
-                    // Например, можно запустить тесты для вашего API сервера
-                    // Важно подождать некоторое время, чтобы контейнеры полностью запустились
-                    sleep 30
+                    // Сборка Docker-образа для первого приложения на Go
+                    dir('back') {
+                        sh 'docker build -t back .'
+                    }
 
-                    // Пример теста: проверяем, что контейнеры работают
-                    sh "docker ps | grep ${DB_CONTAINER_NAME}"
-                    sh "docker ps | grep ${API_SERVER_CONTAINER_NAME}"
-                    sh "docker ps | grep ${AUTH_SERVER_CONTAINER_NAME}"
-                    sh "docker ps | grep ${FRONTEND_CONTAINER_NAME}"
+                    // Сборка Docker-образа для второго приложения на Go
+                    dir('auth') {
+                        sh 'docker build -t auth .'
+                    }
+
+                    // Сборка Docker-образа для приложения на React
+                    dir('react') {
+                        sh 'docker build -t react .'
+                    }
+                }
+            }
+        }
+
+        stage('Deploy with Docker Compose') {
+            steps {
+                script {
+                    dir('back') {
+                        sh 'docker-compose down' // Остановка предыдущих контейнеров, если необходимо
+                        sh 'docker-compose up -d --build' // Поднятие контейнеров в фоне
+                    }
                 }
             }
         }
@@ -78,18 +60,10 @@ pipeline {
 
     post {
         success {
-            echo 'Pipeline completed successfully.'
+            echo 'Pipeline completed successfully'
         }
         failure {
-            echo 'Pipeline failed.'
-        }
-        always {
-            script {
-                dir('back') {
-                    sh 'docker-compose down'
-                }
-                sh 'docker system prune -f'
-            }
+            echo 'Pipeline failed'
         }
     }
 }
