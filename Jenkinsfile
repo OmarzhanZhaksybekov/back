@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        docker-compose-version='2.27.1'
-    }
-
     stages {
         stage('Checkout Repositories') {
             steps {
