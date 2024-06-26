@@ -13,6 +13,7 @@ api сервис для дилерского центра
 
 - [Go](https://go.dev/doc/install)(версия 1.19 и выше)
 - [Docker](https://www.docker.com/products/docker-desktop/)
+- [Docker-compose](https://docs.docker.com/compose/install/)
 
 ### Клонирование репозитория
 
@@ -41,4 +42,10 @@ Frontend работает на localhost:3000
 
 Swagger документация лежит в файле swagger/ swagger_docs.yaml
 
-[swagger документация](https://github.com/ShawaDev/back/blob/main/swagger/swagger_docs.yaml)
+[swagger документация(API)](https://github.com/ShawaDev/back/blob/main/swagger/swagger_docs.yaml)
+[swagger документация(Auth)](https://github.com/ShawaDev/auth/blob/main/swagger/swagger_docs.yaml)
+
+## Ссылки на другие репозитории
+
+React.js приложение [react.js](https://github.com/ShawaDev/front)
+Сервис авторизации [auth](https://github.com/ShawaDev/auth)
