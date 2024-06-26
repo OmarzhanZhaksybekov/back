@@ -19,6 +19,7 @@ func NewHandler(services *service.Service) *Handler {
 func (h *Handler) InitRoutes() *gin.Engine {
 	router := gin.New()
 
+	//Configuring CORS
 	router.Use(func(c *gin.Context) {
 		// Разрешаем доступ с любого источника
 		c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
@@ -30,6 +31,8 @@ func (h *Handler) InitRoutes() *gin.Engine {
 		}
 		c.Next()
 	})
+
+	//initalizing routes
 	cars := router.Group("/cars")
 	{
 		cars.GET("/:id", h.GetCarById)

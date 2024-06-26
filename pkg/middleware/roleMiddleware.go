@@ -21,6 +21,7 @@ const (
 	salt     = "12,;NMFONQNLKAD"
 )
 
+// Parsing token and getting payload
 func ParseToken(tokenString string) (jwt.MapClaims, error) {
 	// Парсинг токена с указанием структуры, в которую будут записаны данные
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
@@ -48,6 +49,7 @@ func ParseToken(tokenString string) (jwt.MapClaims, error) {
 	return claims, nil
 }
 
+// Checking user rights
 func RoleMiddleware(c *gin.Context) {
 	token := c.GetHeader("Authorization")
 	if token == "" {

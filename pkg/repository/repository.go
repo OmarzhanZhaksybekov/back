@@ -5,6 +5,7 @@ import (
 	"github.com/jmoiron/sqlx"
 )
 
+// function for intercation with cars
 type Cars interface {
 	AddCar(car model.Car) error
 	GetCarById(id int) (model.Car, error)

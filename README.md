@@ -1,16 +1,44 @@
-======
-# Dealer
+# API сервис для дилерского центра
 
-<h1 align="center">Hi 👋, I'm O</h1>
-<h3 align="center">Shit GOLang developer</h3>
+api сервис для дилерского центра
 
-<h3 align="left">Connect with me:</h3>
-<a href="https://t.me/shawadeveloper">Telegram</a>
-<p align="left">
-</p>
+## Содержание
 
-<h3 align="left">Languages and Tools:</h3>
-<p align="left"> <a href="https://www.docker.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-original-wordmark.svg" alt="docker" width="40" height="40"/> </a> <a href="https://git-scm.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/git-scm/git-scm-icon.svg" alt="git" width="40" height="40"/> </a> <a href="https://golang.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/go/go-original.svg" alt="go" width="40" height="40"/> </a> <a href="https://www.nginx.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nginx/nginx-original.svg" alt="nginx" width="40" height="40"/> </a> <a href="https://www.postgresql.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/postgresql/postgresql-original-wordmark.svg" alt="postgresql" width="40" height="40"/> </a> <a href="https://reactjs.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original-wordmark.svg" alt="react" width="40" height="40"/> </a> </p>
+- [Установка и запуск](#установка-и-запуск)
+- [Документация](#документация)
 
+## Установка и запуск
 
->>>>>>> a2a47e3 (Initial commit)
+### Зависимости
+
+- [Go](https://go.dev/doc/install)(версия 1.19 и выше)
+- [Docker](https://www.docker.com/products/docker-desktop/)
+
+### Клонирование репозитория
+
+Скопировать все три репозитория в одну директорию и перейти в директорию back
+
+```sh
+git clone https://github.com/ShawaDev/back
+git clone https://github.com/ShawaDev/auth
+git clone https://github.com/ShawaDev/front
+cd back
+```
+
+### Запуск контейнеров
+
+```sh
+docker-compose up --build
+```
+
+### Доступ к контейнерам
+
+API сервис доступен на порту localhost:8001
+Сервис авторизации доступен на порту localhost:8002
+Frontend работает на localhost:3000
+
+## Документация
+
+Swagger документация лежит в файле swagger/ swagger_docs.yaml
+
+[swagger документация](https://github.com/ShawaDev/back/blob/main/swagger/swagger_docs.yaml)
