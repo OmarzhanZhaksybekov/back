@@ -51,3 +51,9 @@ Swagger документация лежит в файле swagger/ swagger_docs.
 React.js приложение [react.js](https://github.com/ShawaDev/front)  
 
 Сервис авторизации [auth](https://github.com/ShawaDev/auth)
+
+## Доступ к root
+
+При авторизации на сервисе используйте:
+email: "root"
+password: "root"
