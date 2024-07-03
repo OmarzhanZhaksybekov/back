@@ -18,8 +18,9 @@ CREATE TABLE users (
     email varchar(255) NOT NULL,
     phone varchar(20),
     password varchar(255) NOT NULL,
-    role varchar(50) DEFAULT 'user'::character varying
+    role varchar(50) DEFAULT 'users'::character varying
 );
+
 
 INSERT INTO users (email, phone, password, role) VALUES ('root', '+7 701 143 3567', 'root', 'admin');
 
