@@ -1,6 +1,7 @@
 package main
 
 import (
+	_ "net/http/pprof"
 	"os"
 
 	app "github.com/ShawaDev/Dealer"
@@ -13,6 +14,7 @@ import (
 )
 
 func main() {
+
 	//Setting logrus formater
 	logrus.SetFormatter(new(logrus.JSONFormatter))
 
