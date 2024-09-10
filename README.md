@@ -20,9 +20,9 @@ api сервис для дилерского центра
 Скопировать все три репозитория в одну директорию и перейти в директорию back
 
 ```sh
-git clone https://github.com/ShawaDev/back
-git clone https://github.com/ShawaDev/auth
-git clone https://github.com/ShawaDev/front
+git clone https://github.com/OmarzhanZhaksybekov/back
+git clone https://github.com/OmarzhanZhaksybekov/auth
+git clone https://github.com/OmarzhanZhaksybekov/front
 cd back
 ```
 
